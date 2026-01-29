@@ -67,7 +67,7 @@
   -webkit-line-clamp: 3;
   line-clamp: 3;
   overflow: hidden;
-  font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", serif;
+  font-family: "LXGW WenKai Lite", "Kaiti SC", "STKaiti", serif;
 }
 
 .badge {
@@ -233,7 +233,7 @@
   background: var(--code-content-bg);
   color: var(--text);
   font-size: 13px;
-  font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", serif;
+  font-family: "LXGW WenKai Lite", "Kaiti SC", "STKaiti", serif;
 }
 
 .pagination__link:hover,

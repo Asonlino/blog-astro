@@ -24,6 +24,9 @@
     "check:codeblock": "node ./scripts/check-codeblock.mjs",
     "check:gallery": "node ./scripts/check-gallery.mjs",
     "ci": "npm run check && npm run build && npm run check:callout && npm run check:codeblock && npm run check:gallery && npm run check:figure --if-present",
+    "font:charset": "node ./scripts/font-charset.mjs",
+    "font:subset": "node ./scripts/font-subset.mjs",
+    "font:build": "npm run font:charset && npm run font:subset",
     "new:bit": "node ./scripts/new-bit.mjs"
   },
   "dependencies": {

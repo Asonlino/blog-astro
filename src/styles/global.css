@@ -10,11 +10,30 @@
 @import "./components/code-block.css";
 
 @font-face {
-  font-family: "LXGW WenKai";
-  src: url("/fonts/LXGWWenKaiLite-Regular.woff2") format("woff2");
+  font-family: "LXGW WenKai Lite";
+  src: url("/fonts/lxgw-wenkai-lite-latin.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-00FF, U+2000-206F, U+3000-303F, U+FF00-FFEF;
+}
+
+@font-face {
+  font-family: "LXGW WenKai Lite";
+  src: url("/fonts/lxgw-wenkai-lite-cjk-common.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+4E00-9FFF;
+}
+
+@font-face {
+  font-family: "LXGW WenKai Lite";
+  src: url("/fonts/lxgw-wenkai-lite-cjk-ext.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3400-4DBF, U+20000-2A6DF;
 }
 
 /* ===============================
@@ -85,7 +104,7 @@ time,
 .archive-date,
 .bit-meta,
 .meta-line {
-  font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", serif;
+  font-family: "LXGW WenKai Lite", "Kaiti SC", "STKaiti", serif;
 }
 
 .page-subtitle,
@@ -97,7 +116,7 @@ time,
 .prose blockquote p,
 cite,
 q {
-  font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", serif;
+  font-family: "LXGW WenKai Lite", "Kaiti SC", "STKaiti", serif;
 }
 
 pre,
@@ -167,7 +186,7 @@ hr {
 }
 
 .intro--serif a {
-  font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", serif;
+  font-family: "LXGW WenKai Lite", "Kaiti SC", "STKaiti", serif;
 }
 
 .section-title {

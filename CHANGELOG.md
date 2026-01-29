@@ -7,11 +7,18 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 ## [Unreleased]
 ### Added
 ### Changed
+### Fixed
+
+## [0.1.1] - 2026-01-29
+### Added
+### Changed
 - README 补充演示链接与截图，并调整 CI 徽章样式
 - package.json 补充开源元信息（license/repository/bugs/homepage）并标记为可发布
 - 侧栏英文引言文案更新
 - 页脚年份改为自动区间（2025–当前年）
 - 移动端侧栏图标组收紧间距并右对齐（避免顶部遮挡）
+- 首页 Hero 图改为本地 `astro:assets` 图片输出，新增多格式（AVIF/WebP）与更精确 sizes；LCP 优先级由 `isLCP` 控制
+- LXGW WenKai Lite 字体改为三段子集（latin/common/ext）并使用 unicode-range 按需加载，移除大字体 preload；新增字体构建脚本与可提交子集文件
 ### Fixed
 - 桌面端导航链接点击区域由整行收敛到文本范围
 
