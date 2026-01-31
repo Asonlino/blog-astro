@@ -9,6 +9,7 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 ### Added
 - 新增 `netlify.toml` 固化 Netlify 构建与发布参数
 - README 一键部署增加部署后检查清单
+- 新增 `tools/charset-base.txt`（3500 常用字基础表）
 ### Changed
 - 构建时强制内联样式表（`inlineStylesheets: 'always'`），减少首屏阻塞 CSS
 - `SITE_URL` 缺失时不再输出 canonical/og:url（避免相对 URL 被判错）
@@ -22,6 +23,7 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - 首页 Hero 图改为本地 `astro:assets` 图片输出，新增多格式（AVIF/WebP）与更精确 sizes；LCP 优先级由 `isLCP` 控制
 - LXGW WenKai Lite 字体改为三段子集（latin/common/ext）并使用 unicode-range 按需加载，移除大字体 preload；新增字体构建脚本与可提交子集文件
 - Noto Serif SC 改为自托管并子集化（400/600），移除 Google Fonts 依赖
+- 字符集生成合并 3500 常用字基础表，降低缺字概率
 ### Fixed
 - `robots.txt` 移除误导性的 sitemap 注释
 - 桌面端导航链接点击区域由整行收敛到文本范围

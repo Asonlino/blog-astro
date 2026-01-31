@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const ROOT = process.cwd();
 const OUTPUT_PATH = path.join(ROOT, 'tools', 'charset-common.txt');
+const BASE_CHARSET_PATH = path.join(ROOT, 'tools', 'charset-base.txt');
 
 const ASCII_LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const ASCII_DIGITS = '0123456789';
@@ -72,6 +73,13 @@ const collectFiles = async () => {
 };
 
 const main = async () => {
+  try {
+    const baseText = await fs.readFile(BASE_CHARSET_PATH, 'utf8');
+    addText(baseText);
+  } catch (_) {
+    // Optional base charset file; ignore if missing.
+  }
+
   const files = await collectFiles();
   for (const filePath of files) {
     const text = await fs.readFile(filePath, 'utf8');

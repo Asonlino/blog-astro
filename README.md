@@ -1,12 +1,12 @@
 # astro-whono
 
-[![CI](https://img.shields.io/github/actions/workflow/status/cxro/astro-whono/ci.yml?style=for-the-badge&label=CI&labelColor=2E3440&color=A3BE8C&logo=githubactions&logoColor=ECEFF4)](https://github.com/cxro/astro-whono/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/cxro/astro-whono/ci.yml?style=flat&label=CI&labelColor=2E3440&color=A3BE8C&logo=githubactions&logoColor=ECEFF4)](https://github.com/cxro/astro-whono/actions/workflows/ci.yml)
 
-[![Node](https://img.shields.io/github/package-json/node-version/cxro/astro-whono?branch=main&style=for-the-badge&label=Node&labelColor=2E3440&color=81A1C1&logo=nodedotjs&logoColor=ECEFF4)](https://github.com/cxro/astro-whono#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82)
+[![Node](https://img.shields.io/github/package-json/node-version/cxro/astro-whono?branch=main&style=flat&label=Node&labelColor=2E3440&color=81A1C1&logo=nodedotjs&logoColor=ECEFF4)](https://github.com/cxro/astro-whono#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82)
 
-[![Astro](https://img.shields.io/github/package-json/dependency-version/cxro/astro-whono/astro?branch=main&style=for-the-badge&label=Astro&labelColor=2E3440&color=BC52EE&logo=astro&logoColor=ECEFF4)](https://docs.astro.build/)
+[![Astro](https://img.shields.io/github/package-json/dependency-version/cxro/astro-whono/astro?branch=main&style=flat&label=Astro&labelColor=2E3440&color=BC52EE&logo=astro&logoColor=ECEFF4)](https://docs.astro.build/)
 
-[![License](https://img.shields.io/github/license/cxro/astro-whono?style=for-the-badge&label=License&labelColor=2E3440&color=4C566A&logo=opensourceinitiative&logoColor=ECEFF4)](LICENSE)
+[![License](https://img.shields.io/github/license/cxro/astro-whono?style=flat&label=License&labelColor=2E3440&color=4C566A&logo=opensourceinitiative&logoColor=ECEFF4)](LICENSE)
 
 一个极简双栏的 Astro 主题，用于个人写作与轻量内容发布。
 
@@ -53,9 +53,17 @@ npm run build && npm run preview
 
 ## 一键部署
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/cxro/astro-whono)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/cxro/astro-whono)
-[![Deploy to Cloudflare Pages](https://img.shields.io/badge/Deploy-Cloudflare%20Pages-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](#一键部署)
+<p align="center">
+  <a href="https://vercel.com/new/clone?repository-url=https://github.com/cxro/astro-whono">
+    <img src="https://vercel.com/button" alt="Deploy with Vercel" height="28" />
+  </a>
+  <a href="https://app.netlify.com/start/deploy?repository=https://github.com/cxro/astro-whono">
+    <img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="28" />
+  </a>
+  <a href="https://dash.cloudflare.com/?to=/:account/workers-and-pages">
+    <img src="https://img.shields.io/badge/Deploy-Cloudflare%20Pages-F38020?style=flat&logo=cloudflare&logoColor=white" alt="Deploy to Cloudflare Pages" height="28" />
+  </a>
+</p>
 
 部署参数（手动导入仓库时填写）：
 - Framework preset：Astro（Cloudflare Pages）
@@ -67,7 +75,7 @@ npm run build && npm run preview
 - 生产环境建议配置 `SITE_URL`，用于生成 canonical/og:url（绝对 URL）和 RSS 链接
 
 <details>
-<summary><strong>部署后检查（可选）</strong></summary>
+<summary><strong>部署后检查</strong></summary>
 
 - 首页 / 列表 / 详情页可访问
 - RSS 可访问（`/rss.xml` 及分栏 RSS）
@@ -141,8 +149,9 @@ draft: true
 - LXGW WenKai Lite（Regular）
 
 仓库提交的是子集化后的 WOFF2 字体（latin / cjk-common / cjk-ext 三段，`unicode-range` 按需加载），因此 **clone 即用**。
+子集字符集由仓库文本 + `tools/charset-base.txt`（3500 常用字）共同生成，用来降低缺字概率。
 
-重新生成字体子集（可选）：
+重新生成字体子集：
 1. 准备源字体放入 `tools/fonts-src/`
 2. 运行 `npm run font:build`
 3. 若出现缺字，将缺失字符补到 `tools/charset-common.txt` 后重跑
@@ -188,12 +197,11 @@ draft: true
 
 ## 贡献
 
-功能改动请走 PR（建议从 \feature/*` 分支发起）。`
+功能改动请走 PR（建议从 feature/*` 分支发起）。`
 
 License：MIT
 
 
 ## 致谢
 
-- 感谢 [elizen/elizen-blog](https://github.com/elizen/elizen-blog)，这是本主题设计的起点。
-- 其风格可进一步追溯至 Hugo 主题  [yihui/hugo-ivy](https://github.com/yihui/hugo-ivy)
+- 感谢 [elizen/elizen-blog](https://github.com/elizen/elizen-blog)，这是本主题设计的起点，其风源自Hugo 主题  [yihui/hugo-ivy](https://github.com/yihui/hugo-ivy)
