@@ -4,12 +4,12 @@ import { getEntry, render } from 'astro:content';
 
 const prod = import.meta.env.PROD;
 
-const entry = await getEntry('kids', 'index');
+const entry = await getEntry('memo', 'index');
 if (!entry) {
-  throw new Error('Missing kids page entry: src/content/kids/index.md');
+  throw new Error('Missing memo page entry: src/content/memo/index.md');
 }
 if (prod && entry.data.draft) {
-  throw new Error('Kids entry is marked draft...');
+  throw new Error('Memo entry is marked draft...');
 }
 
 const { Content, headings } = await render(entry);
@@ -34,7 +34,11 @@ for (const h of headings) {
 }
 ---
 
-<BaseLayout title="孩童" bodyClass="kids-page immersive-page">
+<BaseLayout
+  title="生活小记"
+  description="整理一些值得留存的片刻与回忆。"
+  bodyClass="memo-page immersive-page"
+>
   <div class="page-header reader-exit-anchor">
     <h1 class="page-title">{entry.data.title}</h1>
     {entry.data.subtitle ? <span class="page-subtitle">{entry.data.subtitle}</span> : null}
@@ -91,7 +95,7 @@ for (const h of headings) {
     <br />也许，为瞬间的感受留下一份文字备份，正是抵抗遗忘最温柔却最有效的方式。
   </div>
 
-  <nav class="kids-toc" aria-label="目录">
+  <nav class="memo-toc" aria-label="目录">
     {groups.map((g) => (
       <details open>
         <summary>{g.title}</summary>
@@ -109,7 +113,7 @@ for (const h of headings) {
     ))}
   </nav>
 
-  <div class="kids-content prose">
+  <div class="memo-content prose">
     <Content />
   </div>
 
@@ -118,17 +122,33 @@ for (const h of headings) {
       const mq = window.matchMedia('(max-width: 640px)');
       const sync = () => {
         if (mq.matches) {
-          document.querySelectorAll('.kids-toc details[open]').forEach((el) => {
+          document.querySelectorAll('.memo-toc details[open]').forEach((el) => {
             el.removeAttribute('open');
           });
         } else {
-          document.querySelectorAll('.kids-toc details:not([open])').forEach((el) => {
+          document.querySelectorAll('.memo-toc details:not([open])').forEach((el) => {
             el.setAttribute('open', '');
           });
         }
       };
       sync();
       mq.addEventListener('change', sync);
+
+      const content = document.querySelector('.memo-content');
+      if (content) {
+        const nodes = content.querySelectorAll('h2, h3');
+        let count = 0;
+        nodes.forEach((node) => {
+          if (node.tagName === 'H2') {
+            count = 0;
+            return;
+          }
+          if (node.tagName === 'H3') {
+            count += 1;
+            node.setAttribute('data-num', String(count));
+          }
+        });
+      }
     })();
   </script>
 </BaseLayout>

@@ -2,6 +2,7 @@
 title: Building a Modern Web Application with Astro
 description: A comprehensive guide to creating fast, content-focused websites
 date: 2026-01-10
+badge: Astro
 tags: ["Astro", "Web Development", "Tutorial"]
 draft: false
 ---

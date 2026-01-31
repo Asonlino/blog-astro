@@ -749,12 +749,12 @@ body.immersive-page[data-reading="immersive"] .prose p {
   margin: 16px 0;
 }
 
-/* Kids 页面阅读增强：字号增幅更小 */
-body.kids-page[data-reading="immersive"] .prose {
+/* Memo 页面阅读增强：字号增幅更小 */
+body.memo-page[data-reading="immersive"] .prose {
   font-size: 16px;
   line-height: 1.85;
 }
 
-body.kids-page[data-reading="immersive"] .prose p {
+body.memo-page[data-reading="immersive"] .prose p {
   margin: 14px 0;
 }

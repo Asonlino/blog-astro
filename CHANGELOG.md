@@ -28,6 +28,8 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - 归档入口改为 `/archive/`，详情统一到 `/archive/{slug}/`，并同步更新 RSS/链接
 - 归档分页常量更名为 `PAGE_SIZE_ARCHIVE`
 - 内容集合合并为 essay；/essay/{slug} 改为重定向，/essay/rss.xml 输出文章流全量
+- 栏目“孩童”调整为“⼩记”，路由由 `/kids/` 变更为 `/memo/`，内容集合同步更名为 `memo`
+- 小记正文编号按年度分组重置
 ### Fixed
 - `robots.txt` 移除误导性的 sitemap 注释
 - 桌面端导航链接点击区域由整行收敛到文本范围
@@ -86,10 +88,10 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - 移动端细节尺寸抽象为 CSS 变量（`--tap-min-h` / `--pad-x` / `--card-pad` / `--quote-pad` / `--header-gap`）
 - bits 工具条布局与间距调整：搜索/按钮同一行、控件高度统一、留白更紧凑
 - 归档移动端改为标题下方同一行展示完整日期与标签，并优化条目间距
-- kids 目录在 ≤640 改为 3 列，并随断点自动折叠/展开
+- 小记目录在 ≤640 改为 3 列，并随断点自动折叠/展开
 - 拆分 `global.css`：新增 layout/lists/bits 组件样式文件，仍以 `global.css` 为唯一入口
 - 调整 `global.css` 的 `@import` 顺序（layout → lists → bits → prose → figure → callout → code-block）
-- Kids TOC 监听改用 `matchMedia.addEventListener`；复制按钮兜底收敛为兼容路径
+- 小记 TOC 监听改用 `matchMedia.addEventListener`；复制按钮兜底收敛为兼容路径
 - bits 图片在平板宽度限制最大宽度，避免撑满卡片容器
 - 移动端与平板页首留白收紧（sidebar/content 顶部 padding 下调）
 - 阅读模式退出按钮在移动端滚动超阈值时切换为浮层，阈值内保留原位入口
@@ -118,11 +120,11 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
   - 自动跟随系统偏好，支持手动切换
   - 切换按钮位于侧栏底部，带无障碍支持（`aria-pressed`、`aria-label`）
   - Shiki 代码高亮双主题（`github-light` / `github-dark`）
-- 侧栏底部新增阅读模式与 RSS 按钮（黑白图标、悬停提示），阅读模式全站入口，文章/Kids 页支持沉浸阅读与退出按钮
-- Kids 页面 TOC 区域折叠指示器（三角形图标，展开/折叠时旋转）
+- 侧栏底部新增阅读模式与 RSS 按钮（黑白图标、悬停提示），阅读模式全站入口，文章/小记页支持沉浸阅读与退出按钮
+- 小记页面 TOC 区域折叠指示器（三角形图标，展开/折叠时旋转）
 - Initial Astro theme scaffold with fixed sidebar + content layout.
-- Routes: `/`, `/archive/`, `/essay/`, `/bits/`, `/kids/`, `/about/`.
-- Content Collections: `essay`, `bits`, `kids`.
+- Routes: `/`, `/archive/`, `/essay/`, `/bits/`, `/memo/`, `/about/`.
+- Content Collections: `essay`, `bits`, `memo`.
 - Bits draft generator: `npm run new:bit`.
 - RSS endpoints: `/rss.xml`, `/archive/rss.xml`, `/essay/rss.xml`.
 
@@ -131,7 +133,7 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - callout 图标改为 `.callout-icon` 钩子，CSS mask 提供 SVG；tip 使用 Lucide sparkles 并设为低饱和绿
 - 更新 Markdown 指南中的 callout 示例结构
 - 正文图片统一最大宽度为 75% 并居中显示（`.prose img`）
-- kids 示例内容替换为可开源保留的原创示例
+- 小记示例内容替换为可开源保留的原创示例
 - 配色调整为暖色调（Stone 色系）
 - TOC 区域行间距增加（`gap: 14px`，一级标题间距 `20px`）
 - 引用和代码块背景色改用 CSS 变量，适配夜间模式
@@ -143,10 +145,10 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - 导航链接 hover 效果改为向左平移
 
 ### Fixed
-- 修复 `astro check` 类型检查错误（隐式 `any`、DOM 类型收窄、kids TOC 类型推断）
+- 修复 `astro check` 类型检查错误（隐式 `any`、DOM 类型收窄、小记 TOC 类型推断）
 - 修正文档指引路径（AI-GUIDE 指向 docs）
 - 修复引用内 `<p>` 标签默认 margin 导致的高度问题
 - 修复深色模式代码块背景未切换、日间高亮被覆盖的问题
 
 ### Removed
-- 清理未使用的 CSS 样式（`.bits-hero`、`.kids-subtitle`）
+- 清理未使用的 CSS 样式（`.bits-hero`、`.memo-subtitle`）

@@ -2,6 +2,7 @@
 title: Markdown 排版完全指南
 description: 展示所有 Markdown 格式效果，包括标题、列表、代码、表格、引用等
 date: 2026-01-15
+badge: 示例
 tags: ["指南", "Markdown", "排版"]
 draft: false
 ---

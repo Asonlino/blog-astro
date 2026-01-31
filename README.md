@@ -17,7 +17,7 @@
 
 - 双栏布局（侧栏导航 + 内容区）
 - 移动端适配
-- 内容集合：随笔 / 絮语 / 孩童（归档为目录视图）
+- 内容集合：随笔 / 絮语 / 小记（归档为目录视图）
 - RSS：聚合 + 分栏订阅
 - 浅色 / 深色模式 + 阅读模式
 
@@ -81,11 +81,11 @@ npm run build && npm run preview
 内容集合（Content Collections）：
 - 随笔：位于 `src/content/essay` 目录
 - 絮语：位于 `src/content/bits` 目录
-- 孩童：位于 `src/content/kids/index.md`
+- 小记：位于 `src/content/memo/index.md`
 - 归档：由随笔集合按 `archive` 字段生成目录视图
 
 主要路由：
-- 列表页：`/archive/`、`/essay/`、`/bits/`、`/kids/`、`/about/`
+- 列表页：`/archive/`、`/essay/`、`/bits/`、`/memo/`、`/about/`
 - 详情页：`/archive/[...slug]`（唯一入口）
 
 
@@ -105,10 +105,8 @@ badge: optional     # 列表徽标；未填时列表显示“随笔”
 ```yaml
 date: 2026-01-01T12:00:00+08:00
 draft: true
+tags: []            # 可选标签（默认空数组，可省略）
 ```
-
-`draft: true` 的内容会从列表与 RSS 中过滤。
-`archive: false` 会从 `/archive/` 与 `/archive/rss.xml` 排除，但仍保留详情页与 `/essay/` 列表。
 
 
 ## 摘要与描述（description）
