@@ -13,6 +13,8 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - essay 新增 `archive` 字段（默认 true），用于控制是否进入归档与归档 RSS
 - 新增 sitemap 生成（`@astrojs/sitemap`），仅在设置 `SITE_URL` 时启用
 - 新增构建期 `robots.txt`（`src/pages/robots.txt.ts`），仅在设置 `SITE_URL` 时输出 `Sitemap:` 行
+- 新增 bits 轻量图片预览 dialog（为后续 lightbox 升级预留）
+- 新增 bits Markdown 语法演示动态（用于展示常用写法）
 ### Changed
 - 构建时强制内联样式表（`inlineStylesheets: 'always'`），减少首屏阻塞 CSS
 - `SITE_URL` 缺失时不再输出 canonical/og:url（避免相对 URL 被判错）
@@ -37,6 +39,11 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - 草稿工具栏“段落/换行”改为单行换行
 - 标签输入在输入法组合阶段不强制标准化，避免中文输入被打断
 - 草稿图片路径标准化：去 `public/`、统一 `/`、修复 `.webp.webp`
+- bits 多图 `+N` 角标改为右下角胶囊标签，并统一缩略图为按钮容器（便于后续交互扩展）
+- bits 移动端多图改为 2×2 方形网格（1:1），取消首图全宽
+- bits 平板多图改为横向滑动泳道，展示全部图片并露出下一张提示
+- bits 标签输出拆分为独立 token，便于拉开标签间距
+- 桌面端灯箱移除白底卡片，控件与分页器固定到视窗边缘
 - 首页 Hero 图改为本地 `astro:assets` 图片输出，新增多格式（AVIF/WebP）与更精确 sizes；LCP 优先级由 `isLCP` 控制
 - LXGW WenKai Lite 字体改为三段子集（latin/common/ext）并使用 unicode-range 按需加载，移除大字体 preload；新增字体构建脚本与可提交子集文件
 - Noto Serif SC 改为自托管并子集化（400/600），移除 Google Fonts 依赖
@@ -50,6 +57,9 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - `robots.txt` 移除误导性的 sitemap 注释
 - 桌面端导航链接点击区域由整行收敛到文本范围
 - 统一 `page/` 保留 slug 过滤，避免列表与详情不一致导致潜在 404
+- 修复 bits 多图 `+N` 点击无响应的问题
+- 修复灯箱未打开时仍遮挡页面的问题
+- 修复灯箱默认露出与热区遮挡，改为 hidden 默认隐藏并保留常驻导航按钮
 
 ## [0.1.0] - 2026-01-28 (Pre-release)
 ### Added

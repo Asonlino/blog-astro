@@ -79,28 +79,48 @@
 
     <div class="bits-draft-row">
       <div class="bits-draft-field bits-draft-half">
-        <label for="bits-draft-tags">标签</label>
+        <label for="bits-draft-tags" class="bits-draft-label">
+          <span class="bits-draft-label-icon" aria-hidden="true">#</span>
+          标签
+        </label>
         <input id="bits-draft-tags" name="tags" type="text" inputmode="text" placeholder="逗号或空格分隔" />
         <div class="bits-draft-help">例：生活 阅读 / life reading</div>
       </div>
       <div class="bits-draft-field bits-draft-half">
-        <label for="bits-draft-place">地点（可选）</label>
-        <input id="bits-draft-place" name="place" type="text" inputmode="text" placeholder="例如 深圳" />
+        <label for="bits-draft-place" class="bits-draft-label">
+          <span class="bits-draft-label-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+          </span>
+          地点（可选）
+        </label>
+        <input id="bits-draft-place" name="place" type="text" inputmode="text" placeholder="例如:上海" />
         <div class="bits-draft-help">生成 tags 里的 loc:&lt;地点&gt;</div>
       </div>
     </div>
 
     <div class="bits-draft-field">
-      <label>图片（可选）</label>
+      <div class="bits-draft-field-head bits-draft-image-head">
+        <div class="bits-draft-field-title">
+          <label>插入图片（可选）</label>
+          <button class="bits-draft-image-add" type="button" data-bits-image-add>+ 添加</button>
+        </div>
+        <div class="bits-draft-help">自动读取图片尺寸</div>
+      </div>
       <div class="bits-draft-images" data-bits-images>
         <div class="bits-draft-image-row" data-bits-image-row>
-          <input
-            class="bits-draft-image-src"
-            data-bits-image-src
-            type="text"
-            inputmode="url"
-            placeholder="bits/xxx.jpg 或 https://..."
-          />
+          <div class="bits-draft-image-src-wrap">
+            <input
+              class="bits-draft-image-src"
+              data-bits-image-src
+              type="text"
+              inputmode="url"
+              placeholder="bits/xxx.jpg 或 https://..."
+            />
+            <button class="bits-draft-image-clear" type="button" data-bits-image-remove aria-label="移除图片">x</button>
+          </div>
           <input
             class="bits-draft-image-dim"
             data-bits-image-width
@@ -119,20 +139,20 @@
             inputmode="numeric"
             placeholder="高度"
           />
-          <button class="bits-draft-image-remove" type="button" data-bits-image-remove aria-label="移除图片">−</button>
         </div>
       </div>
-      <button class="bits-draft-image-add" type="button" data-bits-image-add>添加图片</button>
-      <div class="bits-draft-help">每行一张图；填写图片后会显示宽高字段</div>
       <template data-bits-image-template>
         <div class="bits-draft-image-row" data-bits-image-row>
-          <input
-            class="bits-draft-image-src"
-            data-bits-image-src
-            type="text"
-            inputmode="url"
-            placeholder="bits/xxx.jpg 或 https://..."
-          />
+          <div class="bits-draft-image-src-wrap">
+            <input
+              class="bits-draft-image-src"
+              data-bits-image-src
+              type="text"
+              inputmode="url"
+              placeholder="bits/xxx.jpg 或 https://..."
+            />
+            <button class="bits-draft-image-clear" type="button" data-bits-image-remove aria-label="移除图片">x</button>
+          </div>
           <input
             class="bits-draft-image-dim"
             data-bits-image-width
@@ -151,15 +171,8 @@
             inputmode="numeric"
             placeholder="高度"
           />
-          <button class="bits-draft-image-remove" type="button" data-bits-image-remove aria-label="移除图片">−</button>
         </div>
       </template>
-    </div>
-
-    <div class="bits-draft-check">
-      <input id="bits-draft-draft" name="draft" type="checkbox" />
-      <label for="bits-draft-draft">标记为草稿</label>
-      <span class="bits-draft-check-help">勾选后仅开发环境可见（草稿）</span>
     </div>
 
     <div class="bits-draft-status" data-bits-draft-status role="status" aria-live="polite"></div>
@@ -189,9 +202,16 @@
       </div>
     </div>
 
-    <div class="bits-draft-actions">
-      <button class="bits-draft-primary" type="button" data-bits-draft-generate>生成并复制</button>
-      <button class="bits-draft-secondary" type="button" data-bits-draft-download>下载 .md</button>
+    <div class="bits-draft-footer">
+      <div class="bits-draft-check">
+        <input id="bits-draft-draft" name="draft" type="checkbox" />
+        <label for="bits-draft-draft">标记为草稿</label>
+        <span class="bits-draft-check-help">草稿:线上/预览默认不显示</span>
+      </div>
+      <div class="bits-draft-actions">
+        <button class="bits-draft-primary" type="button" data-bits-draft-generate>生成并复制</button>
+        <button class="bits-draft-secondary" type="button" data-bits-draft-download>下载 .md</button>
+      </div>
     </div>
   </form>
 </dialog>

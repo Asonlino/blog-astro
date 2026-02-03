@@ -331,7 +331,7 @@ const syncImageRow = (row: HTMLElement) => {
   const els = getImageRowElements(row);
   if (!els) return;
   const hasImage = !!els.srcEl.value.trim();
-  row.classList.toggle('has-dims', hasImage);
+  row.classList.toggle('has-image', hasImage);
   els.widthEl.disabled = !hasImage;
   els.heightEl.disabled = !hasImage;
   if (!hasImage) {
@@ -341,7 +341,9 @@ const syncImageRow = (row: HTMLElement) => {
 };
 
 const syncImageRows = () => {
-  getImageRows().forEach((row) => syncImageRow(row));
+  const rows = getImageRows();
+  rows.forEach((row) => syncImageRow(row));
+  imagesWrap?.classList.toggle('has-multiple', rows.length > 1);
 };
 
 const fillImageRowDimensions = (row: HTMLElement) => {
@@ -389,9 +391,11 @@ const removeImageRow = (row: HTMLElement) => {
     els.heightEl.value = '';
     syncImageRow(row);
     els.srcEl.focus();
+    syncImageRows();
     return;
   }
   row.remove();
+  syncImageRows();
 };
 
 const initImageRow = (row: HTMLElement) => {
@@ -423,6 +427,7 @@ const addImageRow = () => {
   const row = templateRow.cloneNode(true) as HTMLElement;
   imagesWrap.appendChild(row);
   initImageRow(row);
+  syncImageRows();
   row.querySelector<HTMLInputElement>('[data-bits-image-src]')?.focus();
 };
 

@@ -11,7 +11,7 @@ const tags = bit.data.tags ?? [];
 const placeTag = tags.find((t: string) => t.toLowerCase().startsWith('loc:')) ?? '';
 const placeText = placeTag ? placeTag.slice(4).trim() : '';
 const normalTags = tags.filter((t: string) => !t.toLowerCase().startsWith('loc:'));
-const tagsText = normalTags.map((t: string) => `#${t}`).join(' ');
+const normalTagItems = normalTags.map((t: string) => `#${t}`);
 const base = import.meta.env.BASE_URL ?? '/';
 const withBase = (path: string) => {
   if (!path) return path;
@@ -26,9 +26,10 @@ const imageItems = images.map((image) => ({
   ...image,
   src: withBase(image.src)
 }));
+const maxVisible = 4;
 const firstImage = imageItems.length === 1 ? imageItems[0] : null;
 const totalImages = imageItems.length;
-const wideIndex = totalImages > 1 && totalImages <= 4 && totalImages % 2 === 1 ? 0 : -1;
+const wideIndex = totalImages > 1 && totalImages <= maxVisible && totalImages % 2 === 1 ? 0 : -1;
 ---
 
 <article class="bit-card" data-bit data-slug={bit.data.slug ?? bit.id}>
@@ -54,21 +55,41 @@ const wideIndex = totalImages > 1 && totalImages <= 4 && totalImages % 2 === 1 ?
   ) : imageItems.length > 1 ? (
     <div class="bit-media bit-media--grid">
       <div class="bit-media-grid">
-        {imageItems.slice(0, 4).map((image, index) => (
-          <div class={`bit-media-item${index === wideIndex ? ' bit-media-item--wide' : ''}`}>
-            <img
-              src={image.src}
-              alt={image.alt ?? ''}
-              width={image.width}
-              height={image.height}
-              loading="lazy"
-            />
-            {index === 3 && imageItems.length > 4 ? (
-              <span class="bit-media-more">+{imageItems.length - 4}</span>
-            ) : null}
-          </div>
-        ))}
+        {imageItems.slice(0, maxVisible).map((image, index) => {
+          const isMore = index === maxVisible - 1 && imageItems.length > maxVisible;
+          return (
+            <button
+              type="button"
+              class={`bit-media-item${index === wideIndex ? ' bit-media-item--wide' : ''}${isMore ? ' bit-media-item--more' : ''}`}
+              data-bit-image-button
+              data-bit-image-index={index}
+              aria-label={isMore ? `查看全部图片（共 ${imageItems.length} 张）` : `图片 ${index + 1}`}
+            >
+              <img
+                src={image.src}
+                alt={image.alt ?? ''}
+                width={image.width}
+                height={image.height}
+                loading="lazy"
+              />
+              {isMore ? (
+                <>
+                  <span class="bit-media-more" aria-hidden="true" data-bit-image-open-hidden={maxVisible}>
+                    <span class="bit-media-more-short">+ {imageItems.length - maxVisible}</span>
+                    <span class="bit-media-more-full">查看其余{imageItems.length - maxVisible}张</span>
+                  </span>
+                </>
+              ) : null}
+            </button>
+          );
+        })}
       </div>
+      <script
+        type="application/json"
+        data-bit-images
+        is:inline
+        set:html={JSON.stringify(imageItems)}
+      ></script>
     </div>
   ) : null}
 
@@ -80,7 +101,16 @@ const wideIndex = totalImages > 1 && totalImages <= 4 && totalImages % 2 === 1 ?
           <span class="bit-tag-text">{placeText}</span>
         </span>
       ) : null}
-      {tagsText ? <span class="bit-tag bit-tag--normal">❤ {tagsText}</span> : null}
+      {normalTagItems.length ? (
+        <span class="bit-tag bit-tag--normal">
+          <span class="bit-tag-icon" aria-hidden="true">❤</span>
+          <span class="bit-tag-list">
+            {normalTagItems.map((tag) => (
+              <span class="bit-tag-token">{tag}</span>
+            ))}
+          </span>
+        </span>
+      ) : null}
     </div>
     <div>{formatDateTime(bit.data.date)}</div>
   </div>

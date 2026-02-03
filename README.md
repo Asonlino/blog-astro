@@ -53,8 +53,7 @@ npm run build && npm run preview
 <details>
   <summary><strong>Cloudflare Pages 部署（手动导入仓库）</strong></summary>
 
-
-**构建设置（必填）**
+**构建设置**
 - Framework preset：Astro
 - Build command：`npm run build`
 - Output directory：`dist`
@@ -210,4 +209,4 @@ License：MIT
 
 ## 致谢
 
-- 感谢 [elizen/elizen-blog](https://github.com/elizen/elizen-blog)，这是本主题设计的起点，其风源自Hugo 主题  [yihui/hugo-ivy](https://github.com/yihui/hugo-ivy)
+- 感谢 [elizen/elizen-blog](https://github.com/elizen/elizen-blog)，这是本主题设计的起点，其风格源自Hugo 主题  [yihui/hugo-ivy](https://github.com/yihui/hugo-ivy)
