@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Lightbox from '../../components/Lightbox.astro';
 import { getEntry, render } from 'astro:content';
 
 const prod = import.meta.env.PROD;
@@ -150,5 +151,25 @@ for (const h of headings) {
         });
       }
     })();
+  </script>
+
+  <Lightbox
+    id="lightbox"
+    label="图片预览"
+    enableZoom={false}
+    enablePan={false}
+    enableSwipeDownClose={false}
+  />
+
+  <script>
+    import { initArticleLightbox } from '../../scripts/lightbox';
+
+    initArticleLightbox({
+      dialogId: 'lightbox',
+      containerSelector: '.memo-content.prose',
+      enableZoom: false,
+      enablePan: false,
+      enableSwipeDownClose: false
+    });
   </script>
 </BaseLayout>

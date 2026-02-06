@@ -46,6 +46,10 @@ draft: false
 ### 河边晚
 
 傍晚去河边坐一会儿，远处有人放音乐。风不大，水面有细碎的光。坐到天黑才回。
+<figure class="figure">
+  <img src="/images/memo/demo-memo-01.webp" alt="图注示例图片 1" />
+  <figcaption class="figure-caption">图注示例：这是图片的说明文字。</figcaption>
+</figure>
 
 ### 手写信
 
@@ -60,6 +64,7 @@ draft: false
 ### 初雪
 
 第一场雪下得很轻，街上很安静。站在窗前看了很久。
+
 
 ### 书角落
 

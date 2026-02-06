@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BitCard from '../../components/BitCard.astro';
 import BitsDraftDialog from '../../components/BitsDraftDialog.astro';
+import Lightbox from '../../components/Lightbox.astro';
 import { render } from 'astro:content';
 import { getPublished } from '../../lib/content';
 
@@ -53,28 +54,15 @@ const rendered = await Promise.all(
   </div>
 
   <BitsDraftDialog />
-  <dialog
-    class="bits-lightbox"
-    id="bits-lightbox"
-    aria-label="图片预览"
-    aria-hidden="true"
-    data-bits-lightbox
-    tabindex="-1"
-    hidden
-  >
-    <button class="bits-lightbox-close" type="button" data-bits-lightbox-close aria-label="关闭">×</button>
-    <div class="bits-lightbox-navs" aria-hidden="true">
-      <button class="bits-lightbox-nav bits-lightbox-prev" type="button" data-bits-lightbox-prev aria-label="上一张">‹</button>
-      <button class="bits-lightbox-nav bits-lightbox-next" type="button" data-bits-lightbox-next aria-label="下一张">›</button>
-    </div>
-    <figure class="bits-lightbox-figure">
-      <img data-bits-lightbox-image alt="" />
-      <figcaption class="bits-lightbox-meta">
-        <span class="bits-lightbox-count" data-bits-lightbox-count></span>
-        <span class="bits-lightbox-dots" data-bits-lightbox-dots aria-hidden="true"></span>
-      </figcaption>
-    </figure>
-  </dialog>
+  <Lightbox
+    id="lightbox"
+    label="图片预览"
+    enableZoom={true}
+    enablePan={true}
+    enableSwipeDownClose={true}
+    mobileNav="hidden"
+    mobileCount="hidden"
+  />
 
   <script>
     import '../../scripts/bits-search.ts';

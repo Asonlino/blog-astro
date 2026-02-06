@@ -44,31 +44,31 @@ Pullquote（使用 `blockquote.pullquote` 变体）：
 
 ## 提示块（Callout）
 
-使用 HTML 结构插入提示块（支持 note / tip / info / warning 四种类型）。标题内加入 `<span class="callout-icon">` 作为图标钩子；如需隐藏图标，可给该 `span` 添加 `data-icon="none"`：
+推荐使用语法糖（note / tip / info / warning）：
 
+~~~md
+:::note[Note]
+这是补充说明或旁白内容，适合放一些背景或注释。
+:::
+~~~
+
+如需直接写 HTML（更精确控制）：
+
+~~~html
 <div class="callout note">
-  <p class="callout-title"><span class="callout-icon" aria-hidden="true"></span>Note</p>
+  <p class="callout-title" data-icon="none">Note</p>
   <p>这是补充说明或旁白内容，适合放一些背景或注释。</p>
 </div>
+~~~
 
-<div class="callout tip">
-  <p class="callout-title"><span class="callout-icon" aria-hidden="true"></span>Tip</p>
-  <p>这里是小技巧或更优做法，强调“建议”。</p>
-</div>
-
-<div class="callout info">
-  <p class="callout-title"><span class="callout-icon" aria-hidden="true"></span>Info</p>
-  <p>信息提示块，用于补充说明或背景事实。</p>
-</div>
-
-<div class="callout warning">
-  <p class="callout-title"><span class="callout-icon" aria-hidden="true"></span>Warning</p>
-  <p>警告/注意事项，提醒潜在风险或限制。</p>
-</div>
+说明：
+- 默认图标由类型决定，不需要 `<span class="callout-icon">`。
+- 隐藏图标用 `data-icon="none"`，写在 `.callout-title` 上。
+- 自定义图标可用 `data-icon="✨"`（可选）。
 
 ### 语法糖测试集（Callout）
 
-以下仅展示语法（不含样式），用于语法糖测试用例（待实现）：
+以下仅展示语法（不含样式），用于语法糖测试用例：
 
 ### 语法糖渲染示例
 
@@ -223,25 +223,27 @@ npm run build
 **案例 A：img + figcaption**
 
 <figure class="figure">
-  <img src="/figure-01.svg" alt="图注示例图片 1" />
+  <img src="/images/archive/demo-archive-01.webp" alt="图注示例图片 1" />
   <figcaption class="figure-caption">图注示例：这是图片的说明文字。</figcaption>
 </figure>
 
-**案例 B：无 figcaption（不应留空白）**
+**案例 B：无 figcaption**
 
 <figure class="figure">
-  <img src="/gallery-01.svg" alt="无图注示例" />
+  <img src="/images/archive/demo-archive-02.webp" alt="无图注示例" />
 </figure>
 
 **案例 C：picture + figcaption（可选）**
 
 <figure class="figure">
   <picture>
-    <source srcset="/figure-02.svg" type="image/svg+xml" />
-    <img src="/figure-02.svg" alt="图注示例图片 2" />
+    <source srcset="/images/archive/demo-archive-03.webp" type="image/webp" />
+    <img src="/images/archive/demo-archive-02.webp" alt="图注示例图片 2" />
   </picture>
   <figcaption class="figure-caption">图注示例：picture 的说明文字。</figcaption>
 </figure>
+
+> 说明：当前样式下 `img` 与 `picture` 视觉一致。`picture` 主要用于给同一张图准备多个“备用版本”，浏览器将自动选最合适的那张（如手机小图、电脑大图，或优先用 WebP/AVIF）。不需要自动选版本时，用 `img` 就行。
 
 ### Gallery
 
@@ -250,13 +252,14 @@ npm run build
 <ul class="gallery">
   <li>
     <figure>
-      <img src="/gallery-01.svg" alt="画廊示例 1" />
-      <figcaption>第一张图注（可选）。</figcaption>
+      <img src="/images/archive/demo-archive-01.webp" alt="画廊示例 1" />
+      <figcaption>第一张图注（可选）</figcaption>
     </figure>
   </li>
   <li>
     <figure>
-      <img src="/gallery-02.svg" alt="画廊示例 2" />
+      <img src="/images/archive/demo-archive-02.webp" alt="画廊示例 2" />
+      <figcaption>第二张图注（可选）</figcaption>
     </figure>
   </li>
 </ul>

@@ -168,12 +168,29 @@ author:
 
 ### 写作约定（内容块）
 
-- Callout：`:::note[title] ... :::`（note / tip / info / warning）
+- Callout：推荐语法糖 `:::note[title] ... :::`（note / tip / info / warning）；HTML 方式使用 `.callout-title`，隐藏图标用 `data-icon="none"`
 - Figure：`figure > (img|picture) + figcaption?`
 - Gallery：`ul.gallery > li > figure > (img|picture) + figcaption?`（可选 cols-2/cols-3）
 - Quote：标准 `blockquote`，可选 `cite` 标注来源
 - Pullquote：`blockquote.pullquote`
 - Code Block：构建时增强工具栏/复制按钮/行号（作者无需额外写法）
+
+Callout 示例：
+
+```md
+:::note[Note]
+这里是正文……
+:::
+```
+
+HTML 示例：
+
+```html
+<div class="callout note">
+  <p class="callout-title" data-icon="none">Note</p>
+  <p>这里是正文……</p>
+</div>
+```
 
 
 ## 字体与许可
@@ -224,11 +241,15 @@ author:
 
 ## 贡献
 
-功能改动请走 PR（建议从 feature/*` 分支发起）。`
-
-License：MIT
+欢迎创建 Issue 来报告问题或提出想法。
+欢迎提交 Pull Request 参与开发，建议从 feature/* 分支发起。
 
 
 ## 致谢
 
 - 感谢 [elizen/elizen-blog](https://github.com/elizen/elizen-blog)，这是本主题设计的起点，其风格源自Hugo 主题  [yihui/hugo-ivy](https://github.com/yihui/hugo-ivy)
+
+
+## 许可证
+
+License：MIT

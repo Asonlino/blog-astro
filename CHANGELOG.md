@@ -10,11 +10,15 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - 新增 `netlify.toml` 固化 Netlify 构建与发布参数
 - 新增 sitemap 与构建期 `robots.txt`（仅在设置 `SITE_URL` 时启用）
 - 新增 `tools/charset-base.txt`（3500 常用字基础表）
+- 新增通用 Lightbox 组件/脚本/样式（正文页与 bits 复用）
+- 正文页（随笔/归档/小记）图片支持轻灯箱（禁用缩放/拖拽/下滑关闭）
 - bits 新增轻量图片预览 dialog 与 Markdown 语法演示
 - bits 支持作者覆盖（`author.name`/`author.avatar`）与草稿生成器作者输入
 ### Changed
 - 构建时强制内联样式表（`inlineStylesheets: 'always'`），减少首屏阻塞
 - `SITE_URL` 缺失时不输出 canonical/og:url，并补充生产警告与部署说明
+- bits 灯箱复用通用控制器并统一样式入口（新增 `lightbox.css`）
+- 文档更新：Callout 说明/示例
 - README/开源元信息/页脚年份/内部链接 base-aware 等基础配置更新
 - 可访问性增强：skip link、`sr-only` 标题、`:focus-visible`、/bits 搜索 label
 - bits 图片字段升级为 `images[]`（Breaking：移除旧字段），并重做草稿录入与多图展示策略
