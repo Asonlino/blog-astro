@@ -13,6 +13,30 @@ export type GetPublishedOptions<K extends CollectionKey> = {
 
 export const isReservedSlug = (slug: string) => slug.startsWith('page/');
 
+export const createWithBase = (base: string) => {
+  const baseNormalized = base.endsWith('/') ? base : `${base}/`;
+  return (path: string) => {
+    if (!path || path === '/') return baseNormalized;
+    const clean = path.startsWith('/') ? path.slice(1) : path;
+    return `${baseNormalized}${clean}`;
+  };
+};
+
+export const getTotalPages = (itemCount: number, pageSize: number) =>
+  Math.ceil(itemCount / pageSize);
+
+export const getPageSlice = <T>(items: T[], currentPage: number, pageSize: number) => {
+  const start = (currentPage - 1) * pageSize;
+  return items.slice(start, start + pageSize);
+};
+
+export const buildPaginatedPaths = (totalPages: number) => {
+  if (totalPages <= 1) return [];
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { page: String(i + 2) }
+  }));
+};
+
 export async function getPublished<K extends CollectionKey>(
   name: K,
   opts: GetPublishedOptions<K> = {}
@@ -24,4 +48,26 @@ export async function getPublished<K extends CollectionKey>(
 
   if (!opts.orderBy) return items;
   return items.slice().sort(opts.orderBy);
+}
+
+export type EssayEntry = CollectionEntry<'essay'>;
+
+export const getEssaySlug = (entry: EssayEntry) => entry.data.slug ?? entry.id;
+
+const orderByEssayDate = (a: EssayEntry, b: EssayEntry) => b.data.date.valueOf() - a.data.date.valueOf();
+
+export async function getSortedEssays() {
+  return getPublished('essay', {
+    orderBy: orderByEssayDate
+  });
+}
+
+export async function getVisibleEssays() {
+  const essays = await getSortedEssays();
+  return essays.filter((entry) => !isReservedSlug(getEssaySlug(entry)));
+}
+
+export async function getArchiveEssays() {
+  const essays = await getSortedEssays();
+  return essays.filter((entry) => entry.data.archive !== false && !isReservedSlug(getEssaySlug(entry)));
 }

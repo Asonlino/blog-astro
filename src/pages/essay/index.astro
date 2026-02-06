@@ -1,26 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EssayCard from '../../components/EssayCard.astro';
-import { getPublished, isReservedSlug } from '../../lib/content';
+import { createWithBase, getEssaySlug, getPageSlice, getTotalPages, getVisibleEssays } from '../../lib/content';
 import { getListExcerpt } from '../../utils/excerpt';
 import { PAGE_SIZE_ESSAY } from '../../../site.config.mjs';
 
 const base = import.meta.env.BASE_URL ?? '/';
-const baseNormalized = base.endsWith('/') ? base : `${base}/`;
-const withBase = (path: string) => {
-  if (!path || path === '/') return baseNormalized;
-  const clean = path.startsWith('/') ? path.slice(1) : path;
-  return `${baseNormalized}${clean}`;
-};
-
-const essays = await getPublished('essay', {
-  orderBy: (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-});
-
-const visibleEssays = essays.filter((entry) => !isReservedSlug(entry.data.slug ?? entry.id));
-const totalPages = Math.ceil(visibleEssays.length / PAGE_SIZE_ESSAY);
+const withBase = createWithBase(base);
+const visibleEssays = await getVisibleEssays();
+const totalPages = getTotalPages(visibleEssays.length, PAGE_SIZE_ESSAY);
 const currentPage = 1;
-const pageEssays = visibleEssays.slice(0, PAGE_SIZE_ESSAY);
+const pageEssays = getPageSlice(visibleEssays, currentPage, PAGE_SIZE_ESSAY);
 const showPagination = totalPages > 1;
 const prevHref = null;
 const nextHref = currentPage < totalPages ? withBase(`/essay/page/${currentPage + 1}/`) : null;
@@ -35,7 +25,7 @@ const nextHref = currentPage < totalPages ? withBase(`/essay/page/${currentPage 
   <div class="list">
     {pageEssays.map((e) => (
       <EssayCard
-        href={withBase(`/archive/${e.data.slug ?? e.id}/`)}
+        href={withBase(`/archive/${getEssaySlug(e)}/`)}
         title={e.data.title}
         excerpt={getListExcerpt(e)}
         date={e.data.date}

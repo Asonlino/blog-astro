@@ -7,6 +7,7 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 
 ## [Unreleased] 
 ### Added
+- 新增 `public/_headers`（Cloudflare Pages 安全响应头基线：CSP/Referrer-Policy/X-Content-Type-Options/Permissions-Policy/HSTS）
 - 新增 `netlify.toml` 固化 Netlify 构建与发布参数
 - 新增 sitemap 与构建期 `robots.txt`（仅在设置 `SITE_URL` 时启用）
 - 新增 `tools/charset-base.txt`（3500 常用字基础表）
@@ -15,6 +16,9 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - bits 新增轻量图片预览 dialog 与 Markdown 语法演示
 - bits 支持作者覆盖（`author.name`/`author.avatar`）与草稿生成器作者输入
 ### Changed
+- Markdown 渲染链路新增 `rehype-raw` + `rehype-sanitize`（含 allowlist），在保留 callout/gallery/code-block 等结构前提下补齐 XSS 防护
+- /bits 列表渲染改为按正文长度分流：清洗后 `<=180` 字保留原 Markdown 结构渲染，`>180` 字显示摘要文本
+- archive/essay 列表页与分页页复用 `src/lib/content.ts` 公共工具（`createWithBase`、`getPageSlice`、`getTotalPages`、`buildPaginatedPaths` 等）
 - 构建时强制内联样式表（`inlineStylesheets: 'always'`），减少首屏阻塞
 - `SITE_URL` 缺失时不输出 canonical/og:url，并补充生产警告与部署说明
 - bits 灯箱复用通用控制器并统一样式入口（新增 `lightbox.css`）
@@ -28,6 +32,7 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - 字体子集化与自托管（LXGW WenKai Lite / Noto Serif SC），移除大字体 preload
 - 路由/集合调整：归档入口统一 `/archive/`，/essay 仅重定向，/memo 替代 /kids
 ### Fixed
+- 修复 `src/scripts/lightbox.ts` 在 `exactOptionalPropertyTypes` 下的类型错误（避免 `npm run check` 失败）
 - `robots.txt` 移除误导性的 sitemap 注释
 - 统一 `page/` 保留 slug 过滤，避免列表与详情不一致导致潜在 404
 - 修复 bits 多图 `+N` 点击无响应

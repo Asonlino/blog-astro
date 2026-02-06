@@ -41,6 +41,10 @@ export function getListExcerpt(entry: { body?: string }): string {
   return excerptFromMarkdown(entry?.body ?? '', 120);
 }
 
+export function getBitsExcerpt(entry: { body?: string }): string {
+  return excerptFromMarkdown(entry?.body ?? '', 180);
+}
+
 export function getMetaDescription(entry: { body?: string; data?: { description?: string } }): string {
   const raw = entry?.data?.description ?? '';
   const trimmed = typeof raw === 'string' ? raw.trim() : '';

@@ -596,11 +596,12 @@ export const initArticleLightbox = (options: ArticleLightboxOptions = {}) => {
 
     const image: LightboxImage = {
       src,
-      alt: img.alt ?? '',
-      caption: getCaption(img) || undefined,
-      width: img.naturalWidth || undefined,
-      height: img.naturalHeight || undefined
+      alt: img.alt ?? ''
     };
+    const caption = getCaption(img);
+    if (caption) image.caption = caption;
+    if (img.naturalWidth > 0) image.width = img.naturalWidth;
+    if (img.naturalHeight > 0) image.height = img.naturalHeight;
     items.push({ el: img, image });
   });
 

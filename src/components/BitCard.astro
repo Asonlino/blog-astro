@@ -4,7 +4,8 @@ import { site } from '../../site.config.mjs';
 
 const {
   bit,
-  Content
+  excerpt = '',
+  Content = null
 } = Astro.props;
 
 const tags = bit.data.tags ?? [];
@@ -57,9 +58,15 @@ const hasTags = Boolean(placeText || normalTagItems.length);
     <div class="name">{authorName}</div>
   </div>
 
-  <div class="bit-body">
-    <Content />
-  </div>
+  {Content ? (
+    <div class="bit-body">
+      <Content />
+    </div>
+  ) : excerpt ? (
+    <div class="bit-body">
+      <p>{excerpt}</p>
+    </div>
+  ) : null}
 
   {firstImage ? (
     <div class="bit-media">

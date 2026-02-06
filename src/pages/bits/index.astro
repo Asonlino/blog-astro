@@ -5,15 +5,22 @@ import BitsDraftDialog from '../../components/BitsDraftDialog.astro';
 import Lightbox from '../../components/Lightbox.astro';
 import { render } from 'astro:content';
 import { getPublished } from '../../lib/content';
+import { cleanMarkdownToText, getBitsExcerpt } from '../../utils/excerpt';
 
 const bits = await getPublished('bits', {
   orderBy: (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 });
 
-const rendered = await Promise.all(
+const FULL_RENDER_LIMIT = 180;
+
+const cards = await Promise.all(
   bits.map(async (bit) => {
-    const { Content } = await render(bit);
-    return { bit, Content };
+    const plain = cleanMarkdownToText(bit.body ?? '');
+    if (plain.length <= FULL_RENDER_LIMIT) {
+      const { Content } = await render(bit);
+      return { bit, excerpt: '', Content };
+    }
+    return { bit, excerpt: getBitsExcerpt(bit), Content: null };
   })
 );
 ---
@@ -48,8 +55,8 @@ const rendered = await Promise.all(
   </div>
 
   <div id="bits-list">
-    {rendered.map(({ bit, Content }) => (
-      <BitCard bit={bit} Content={Content} />
+    {cards.map(({ bit, excerpt, Content }) => (
+      <BitCard bit={bit} excerpt={excerpt} Content={Content} />
     ))}
   </div>
 
