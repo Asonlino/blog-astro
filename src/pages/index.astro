@@ -24,7 +24,12 @@ const latest = visibleEssays.slice(0, 12);
   </div>
 
   <div class="intro intro--serif">
-    <span class="intro__lead">这是一个开源写作主题与示例内容库:包含 随笔/essay、小记/memo、归档/archive 与 絮语/bits，使用与配置请见 README 。</span>
+    <span class="intro__lead">無限進步</span>
+    
+    <div class="ip-info-line" style="margin: 8px 0; font-size: 0.9em; color: var(--text-muted, #666);">
+      IP地址：<span id="display-ip">正在获取...</span> &nbsp; 地区：<span id="display-region">正在获取...</span>
+    </div>
+
     <span class="intro__more">更多文章请访问 <a href={withBase('/archive/')}>归档</a> 或 <a href={withBase('/essay/')}>随笔</a>。</span>
   </div>
 
@@ -47,3 +52,52 @@ const latest = visibleEssays.slice(0, 12);
     })}
   </div>
 </BaseLayout>
+
+<script>
+  async function fetchIPData() {
+    const displayIp = document.getElementById('display-ip');
+    const displayRegion = document.getElementById('display-region');
+
+    function fetchWithTimeout(url, timeoutMs = 1000) {
+        const controller = new AbortController();
+        const signal = controller.signal;
+        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+        return fetch(url, { signal }).then(res => {
+            clearTimeout(timeoutId);
+            return res.ok ? res.json() : null;
+        }).catch(() => {
+            clearTimeout(timeoutId);
+            return null;
+        });
+    }
+
+    try {
+        const [ipv4Res] = await Promise.all([
+            fetchWithTimeout('https://geoip4.icysn.cn/api/json', 10000)
+        ]);
+
+        if (ipv4Res?.code === 0 && ipv4Res.data) {
+            const data = ipv4Res.data;
+            const ip = data.ip || '获取失败';
+            const regions = data.regions || [];
+            const country = data.country?.name || '';
+            const prov = regions[0] || '';
+            const city = regions[1] || '';
+            const district = regions[2] || '';
+
+            const regionStr = [country, prov, city, district].filter(Boolean).join(' ') || '获取失败';
+
+            if(displayIp) displayIp.textContent = ip;
+            if(displayRegion) displayRegion.textContent = regionStr;
+        } else {
+            if(displayIp) displayIp.textContent = '获取失败';
+            if(displayRegion) displayRegion.textContent = '获取失败';
+        }
+    } catch (err) {
+        if(displayIp) displayIp.textContent = '获取失败';
+        if(displayRegion) displayRegion.textContent = '获取失败';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', fetchIPData);
+</script>
