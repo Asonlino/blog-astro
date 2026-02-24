@@ -54,46 +54,49 @@ const latest = visibleEssays.slice(0, 12);
     const displayIp = document.getElementById('display-ip');
     const displayRegion = document.getElementById('display-region');
 
-    function fetchWithTimeout(url, timeoutMs = 1000) {
+    if (!displayIp || !displayRegion) return;
+
+    function fetchWithTimeout(url, timeoutMs = 5000) {
         const controller = new AbortController();
-        const signal = controller.signal;
         const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-        return fetch(url, { signal }).then(res => {
-            clearTimeout(timeoutId);
-            return res.ok ? res.json() : null;
-        }).catch(() => {
-            clearTimeout(timeoutId);
-            return null;
-        });
+        
+        return fetch(url, { signal: controller.signal })
+            .then(res => {
+                clearTimeout(timeoutId);
+                return res.ok ? res.json() : null;
+            })
+            .catch(err => {
+                clearTimeout(timeoutId);
+                return null;
+            });
     }
 
     try {
-        const [ipv4Res] = await Promise.all([
-            fetchWithTimeout('https://geoip4.icysn.cn/api/json', 10000)
-        ]);
+        const ipv4Res = await fetchWithTimeout('https://geoip4.icysn.cn/api/json', 5000);
 
         if (ipv4Res?.code === 0 && ipv4Res.data) {
             const data = ipv4Res.data;
-            const ip = data.ip || '获取失败';
+            const ip = data.ip || '未知';
             const regions = data.regions || [];
             const country = data.country?.name || '';
             const prov = regions[0] || '';
             const city = regions[1] || '';
             const district = regions[2] || '';
 
-            const regionStr = [country, prov, city, district].filter(Boolean).join(' ') || '获取失败';
+            const regionStr = [country, prov, city, district].filter(Boolean).join(' ') || '未知地区';
 
-            if(displayIp) displayIp.textContent = ip;
-            if(displayRegion) displayRegion.textContent = regionStr;
+            displayIp.textContent = ip;
+            displayRegion.textContent = regionStr;
         } else {
-            if(displayIp) displayIp.textContent = '获取失败';
-            if(displayRegion) displayRegion.textContent = '获取失败';
+            displayIp.textContent = '获取失败 (接口无响应)';
+            displayRegion.textContent = '获取失败';
         }
     } catch (err) {
-        if(displayIp) displayIp.textContent = '获取失败';
-        if(displayRegion) displayRegion.textContent = '获取失败';
+        displayIp.textContent = '获取失败 (网络异常)';
+        displayRegion.textContent = '获取失败';
     }
   }
 
-  document.addEventListener('DOMContentLoaded', fetchIPData);
+  fetchIPData();
+  document.addEventListener('astro:page-load', fetchIPData);
 </script>
