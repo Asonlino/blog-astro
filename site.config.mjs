@@ -14,7 +14,7 @@ export const site = {
   title: 'CriCloud',
   brandTitle: 'CriCloud',
   author: 'CriCloud',
-  authorAvatar: 'author/avatar.webp',
+  authorAvatar: 'img.jpg',
   description: '無限進步'
 };
 
