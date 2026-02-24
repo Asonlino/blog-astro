@@ -57,13 +57,11 @@ const latest = visibleEssays.slice(0, 12);
     if (!displayIp || !displayRegion) return;
 
     try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-        const res = await fetch('https://geoip4.icysn.cn/api/json', { signal: controller.signal });
-        clearTimeout(timeoutId);
-
-        if (!res.ok) throw new Error('HTTP Error');
+        const res = await fetch('https://geoip4.icysn.cn/api/json');
+        
+        if (!res.ok) {
+            throw new Error('HTTP ' + res.status);
+        }
 
         const ipv4Res = await res.json();
 
@@ -81,11 +79,11 @@ const latest = visibleEssays.slice(0, 12);
             displayIp.textContent = ip;
             displayRegion.textContent = regionStr;
         } else {
-            displayIp.textContent = '获取失败';
+            displayIp.textContent = '获取失败: 数据解析错误';
             displayRegion.textContent = '获取失败';
         }
     } catch (err) {
-        displayIp.textContent = '获取失败';
+        displayIp.textContent = '获取失败: ' + err.message;
         displayRegion.textContent = '获取失败';
     }
   }
