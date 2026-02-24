@@ -63,22 +63,19 @@ const latest = visibleEssays.slice(0, 12);
         return fetch(url, { signal: controller.signal })
             .then(res => {
                 clearTimeout(timeoutId);
-                return res.ok ? res.json() : null;
-            })
-            .catch(err => {
-                clearTimeout(timeoutId);
-                return null;
+                if (!res.ok) throw new Error('HTTP');
+                return res.json();
             });
     }
 
     try {
         const ipv4Res = await fetchWithTimeout('https://geoip4.icysn.cn/api/json', 5000);
 
-        if (ipv4Res?.code === 0 && ipv4Res.data) {
+        if (ipv4Res && ipv4Res.code === 0 && ipv4Res.data) {
             const data = ipv4Res.data;
             const ip = data.ip || '未知';
-            const regions = data.regions || [];
             const country = data.country?.name || '';
+            const regions = data.regions || [];
             const prov = regions[0] || '';
             const city = regions[1] || '';
             const district = regions[2] || '';
@@ -88,11 +85,11 @@ const latest = visibleEssays.slice(0, 12);
             displayIp.textContent = ip;
             displayRegion.textContent = regionStr;
         } else {
-            displayIp.textContent = '获取失败 (接口无响应)';
+            displayIp.textContent = '获取失败 (数据异常)';
             displayRegion.textContent = '获取失败';
         }
     } catch (err) {
-        displayIp.textContent = '获取失败 (网络异常)';
+        displayIp.textContent = '获取失败 (请求被拦截或超时)';
         displayRegion.textContent = '获取失败';
     }
   }
