@@ -56,20 +56,16 @@ const latest = visibleEssays.slice(0, 12);
 
     if (!displayIp || !displayRegion) return;
 
-    function fetchWithTimeout(url, timeoutMs = 5000) {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-        
-        return fetch(url, { signal: controller.signal })
-            .then(res => {
-                clearTimeout(timeoutId);
-                if (!res.ok) throw new Error('HTTP');
-                return res.json();
-            });
-    }
-
     try {
-        const ipv4Res = await fetchWithTimeout('https://geoip4.icysn.cn/api/json', 5000);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+        const res = await fetch('https://geoip4.icysn.cn/api/json', { signal: controller.signal });
+        clearTimeout(timeoutId);
+
+        if (!res.ok) throw new Error('HTTP Error');
+
+        const ipv4Res = await res.json();
 
         if (ipv4Res && ipv4Res.code === 0 && ipv4Res.data) {
             const data = ipv4Res.data;
@@ -85,11 +81,11 @@ const latest = visibleEssays.slice(0, 12);
             displayIp.textContent = ip;
             displayRegion.textContent = regionStr;
         } else {
-            displayIp.textContent = '获取失败 (数据异常)';
+            displayIp.textContent = '获取失败';
             displayRegion.textContent = '获取失败';
         }
     } catch (err) {
-        displayIp.textContent = '获取失败 (请求被拦截或超时)';
+        displayIp.textContent = '获取失败';
         displayRegion.textContent = '获取失败';
     }
   }
