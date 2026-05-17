@@ -21,10 +21,6 @@ const latest = visibleEssays.slice(0, 12);
 
   <div class="intro intro--serif">
     <span class="intro__lead">無限進步</span>
-    
-    <div class="ip-info-line" style="margin: 8px 0; font-size: 0.9em; color: var(--text-muted, #666);">
-      IP地址：<span id="display-ip">正在获取...</span> &nbsp; 地区：<span id="display-region">正在获取...</span>
-    </div>
 
     <span class="intro__more">更多文章请访问 <a href={withBase('/archive/')}>归档</a> 或 <a href={withBase('/essay/')}>随笔</a>。</span>
   </div>
@@ -48,46 +44,3 @@ const latest = visibleEssays.slice(0, 12);
     })}
   </div>
 </BaseLayout>
-
-<script>
-  async function fetchIPData() {
-    const displayIp = document.getElementById('display-ip');
-    const displayRegion = document.getElementById('display-region');
-
-    if (!displayIp || !displayRegion) return;
-
-    try {
-        const res = await fetch('https://geoip4.icysn.cn/api/json');
-        
-        if (!res.ok) {
-            throw new Error('HTTP ' + res.status);
-        }
-
-        const ipv4Res = await res.json();
-
-        if (ipv4Res && ipv4Res.code === 0 && ipv4Res.data) {
-            const data = ipv4Res.data;
-            const ip = data.ip || '未知';
-            const country = data.country?.name || '';
-            const regions = data.regions || [];
-            const prov = regions[0] || '';
-            const city = regions[1] || '';
-            const district = regions[2] || '';
-
-            const regionStr = [country, prov, city, district].filter(Boolean).join(' ') || '未知地区';
-
-            displayIp.textContent = ip;
-            displayRegion.textContent = regionStr;
-        } else {
-            displayIp.textContent = '获取失败: 数据解析错误';
-            displayRegion.textContent = '获取失败';
-        }
-    } catch (err) {
-        displayIp.textContent = '获取失败: ' + err.message;
-        displayRegion.textContent = '获取失败';
-    }
-  }
-
-  fetchIPData();
-  document.addEventListener('astro:page-load', fetchIPData);
-</script>
