@@ -3,8 +3,8 @@ title: CriCloud Blog 正式迁移了
 date: 2026-02-24
 draft: false
 archive: true
-slug: optional
-badge: optional
+slug: 
+badge: Hello World
 ---
 
 
