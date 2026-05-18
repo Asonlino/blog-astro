@@ -12,17 +12,25 @@ const essays = await getPublished('essay', {
   orderBy: (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 });
 
-const visibleEssays = essays.filter((entry) => !isReservedSlug(entry.data.slug ?? entry.id));
+const visibleEssays = essays.filter(
+  (entry) => !isReservedSlug(entry.data.slug ?? entry.id)
+);
+
 const latest = visibleEssays.slice(0, 12);
 ---
 
 <BaseLayout bodyClass="home">
-  <h1 class="sr-only">Astro Themes by Whono</h1>
+  <h1 class="sr-only">首页</h1>
 
   <div class="intro intro--serif">
     <span class="intro__lead">探索无限可能</span>
 
-    <span class="intro__more">更多文章请访问 <a href={withBase('/archive/')}>归档</a> 或 <a href={withBase('/essay/')}>随笔</a>。</span>
+    <span class="intro__more">
+      更多文章请访问
+      <a href={withBase('/archive/')}>归档</a>
+      或
+      <a href={withBase('/essay/')}>随笔</a>
+    </span>
   </div>
 
   <h2 class="section-title section-title--index">索引</h2>
@@ -32,6 +40,7 @@ const latest = visibleEssays.slice(0, 12);
       const slug = entry.data.slug ?? entry.id;
       const href = withBase(`/archive/${slug}/`);
       const tag = entry.data.tags?.[0];
+
       return (
         <EntryListItem
           href={href}
