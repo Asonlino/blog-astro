@@ -3,8 +3,8 @@ title: Cloudflare Workers 反向代理 Emby 脚本
 date: 2026-05-19
 draft: false
 archive: true
-slug: optional
-badge: optional
+slug: 
+badge: Workers
 ---
 
 
