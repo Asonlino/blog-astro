@@ -1,13 +1,10 @@
 ---
-title: Cloudflare Workers 反向代理 Emby 脚本
+title: Cloudflare Workers 反向代理 Emby 脚本，支持网页自动跳转
 date: 2026-05-19
 draft: false
 archive: true
 badge: Workers
 ---
-
-
-## Cloudflare Workers 反向代理 Emby 脚本，支持网页自动跳转
 
 ```javascript
 const UPSTREAM = "源服务器地址";
