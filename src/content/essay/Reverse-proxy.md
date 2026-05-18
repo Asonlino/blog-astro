@@ -7,7 +7,7 @@ badge: Workers
 ---
 
 
-# Cloudflare Workers 反向代理 Emby 脚本，支持网页自动跳转
+## Cloudflare Workers 反向代理 Emby 脚本，支持网页自动跳转
 
 ```javascript
 const UPSTREAM = "源服务器地址";
