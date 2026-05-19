@@ -1,10 +1,12 @@
 ---
-title: Cloudflare Workers 反向代理 Emby 脚本，支持网页自动跳转
+title: Cloudflare Workers 反向代理 Emby 脚本
 date: 2026-05-19
 draft: false
 archive: true
 badge: Workers
 ---
+
+专为 Emby 架构设计，解决了大部分反代的报错问题，轻量化设计，在节省请求数量的同时，拥有更强大的性能。同时支持网页 UA 自动跳转
 
 ```javascript
 const UPSTREAM = "源服务器地址";
